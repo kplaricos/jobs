@@ -1,5 +1,5 @@
 require 'json'
-require_relative 'rental_struct'
+require_relative 'structs'
 require_relative 'car_rental'
 
 module Drivy
