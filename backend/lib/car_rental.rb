@@ -13,15 +13,14 @@ module Drivy
             @distance = args.distance
         end
 
+        def output_format(&block)
+            formatted_price = block.call self if block_given?
 
-        def output_format
             {
                 id: id,
-                price: time_component + distance_component
+                price: formatted_price || time_component + distance_component
             }
         end
-
-        private
 
         def days_between
             (Date.parse(end_date) - Date.parse(start_date)).to_i + 1
