@@ -12,19 +12,22 @@ module Drivy
             content = File.read path
             @inputs = JSON.parse content
 
-            cars = inputs['cars']
+            cars = Array.new inputs['cars']
             rentals = Array.new inputs['rentals']
-            @car_rents = []
+            options = Array.new inputs['options'] || []
+            @car_rents = Array.new
 
             rentals.each do |rental|
                 car = cars.find { |car| car['id'] === rental['car_id'] }
+                rent_options = options.filter { |option| option['rental_id'] === rental['id'] }
                 args = RentalStruct.new(
                     rental['id'],
                     car['price_per_day'],
                     car['price_per_km'],
                     rental['start_date'],
                     rental['end_date'],
-                    rental['distance']
+                    rental['distance'],
+                    rent_options.map { |option| option['type'] }
                 )
 
                 car_rents.push(CarRental.new args)

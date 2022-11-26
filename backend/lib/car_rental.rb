@@ -2,7 +2,8 @@ require 'date'
 
 module Drivy
     class CarRental
-        attr_accessor :id, :price_per_day, :price_per_km, :start_date, :end_date, :distance
+        attr_accessor :id, :price_per_day, :price_per_km, :start_date,
+                      :end_date, :distance, :options
 
         def initialize(args)
             @id = args.id
@@ -11,6 +12,7 @@ module Drivy
             @end_date = args.end_date
             @start_date = args.start_date
             @distance = args.distance
+            @options = args.options.nil? ? [] : args.options
         end
 
         def output_format(&block)
